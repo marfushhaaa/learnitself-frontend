@@ -1,0 +1,10 @@
+<nav>
+  <span>Self-Lesson-Planner</span>
+
+  @if (useralias() !== '') {
+    <span> {{ useralias() }}</span>
+    <span> {{ username() }}</span>
+    <button (click)="logout()" mat-button color="warn">Logout</button>
+  }
+  @else {<app-login></app-login>}
+</nav>
