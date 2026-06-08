@@ -1,11 +1,128 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --color-mint:        #a8e6cf;
+  --color-mint-light:  #dcedc1;
+  --color-peach:       #ffd3b6;
+  --color-pink:        #ffabab;
+  --color-coral:       #ff677d;
+  --color-red:         #d83f3f;
+  --color-gray:        #5d5c61;
+  --color-dark:        #292f36;
+
+  --color-bg:          #f7faf8;
+  --color-surface:     #ffffff;
+  --color-border:      rgba(41, 47, 54, 0.1);
+  --color-text:        #292f36;
+  --color-text-muted:  #5d5c61;
+  --color-primary:     #ff677d;
+  --color-primary-h:   #d83f3f;
+  --color-success:     #a8e6cf;
+
+  --radius-sm:  6px;
+  --radius-md:  10px;
+  --radius-lg:  14px;
+}
+
+
+
 * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
   font-family: 'Plus Jakarta Sans', sans-serif;
   transition: cubic-bezier(0.165, 0.84, 0.44, 1) 150ms;
+}
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
 }
 *:hover {
   transition: ease-in 150ms;
 }
 a {
   text-decoration: none;
+}
+/* ── Buttons ───────────────────────────── */
+.btn-primary {
+  background: var(--color-coral);
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.btn-primary:hover {
+  background: var(--color-primary-h);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--color-coral);
+  border: 1.5px solid var(--color-coral);
+  padding: 9px 20px;
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.btn-outline:hover {
+  background: var(--color-coral);
+  color: #fff;
+}
+
+/* ── Cards ─────────────────────────────── */
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+}
+
+/* ── Badges ─────────────────────────────── */
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.badge--mint  { background: var(--color-mint);       color: #1a4a35; }
+.badge--peach { background: var(--color-peach);      color: #7a3e1a; }
+.badge--pink  { background: var(--color-pink);       color: #7a1a2e; }
+.badge--gray  { background: rgba(93,92,97,0.12);     color: var(--color-gray); }
+
+/* ── Progress bar ───────────────────────── */
+.progress-wrap {
+  background: var(--color-mint-light);
+  border-radius: 20px;
+  height: 6px;
+}
+
+.progress-bar {
+  height: 6px;
+  border-radius: 20px;
+  background: var(--color-mint);
+}
+
+/* ── Inputs ─────────────────────────────── */
+input, select, textarea {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 13px;
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 9px 13px;
+  outline: none;
+  transition: border-color 0.15s;
+  background: var(--color-surface);
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--color-coral);
 }

@@ -6,13 +6,13 @@
 }
 
 .navbar__avatar {
-  width: 32px;
-  height: 32px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
-  background: #EEEDFE;
-  color: #3C3489;
+  background: var(--color-mint);
+  color: #1a4a35;
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 600;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -20,35 +20,43 @@
 
 .navbar__username {
   font-size: 13px;
-  color: #1a1a1a;
+  font-weight: 500;
+  color: var(--color-text);
 }
 
 .navbar__logout {
   font-size: 12px;
-  color: #7a7a72;
+  color: var(--color-text-muted);
   background: none;
-  border: 0.5px solid rgba(0,0,0,0.12);
-  border-radius: 6px;
-  padding: 4px 10px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 5px 12px;
   cursor: pointer;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  transition: color 0.15s, border-color 0.15s;
 }
 
 .navbar__logout:hover {
-  color: #c0392b;
-  border-color: #c0392b;
+  color: var(--color-coral);
+  border-color: var(--color-coral);
 }
 
 .navbar__login {
-  font-size: 12px;
-  color: #7a7a72;
-  background-color: #cadde5 ;
-  border: 0.5px solid rgba(0,0,0,0.12);
-  border-radius: 6px;
-  padding: 4px 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--color-coral);
+  color: #fff;
+  border: none;
+  padding: 8px 18px;
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  font-weight: 500;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   cursor: pointer;
+  transition: background 0.15s;
 }
 
 .navbar__login:hover {
-  color: #2b64c0;
-  border-color: #2b64c0;
+  background: var(--color-primary-h); 
 }
