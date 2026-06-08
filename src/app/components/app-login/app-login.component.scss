@@ -1,0 +1,54 @@
+.navbar__user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+}
+
+.navbar__avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #EEEDFE;
+  color: #3C3489;
+  font-size: 13px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbar__username {
+  font-size: 13px;
+  color: #1a1a1a;
+}
+
+.navbar__logout {
+  font-size: 12px;
+  color: #7a7a72;
+  background: none;
+  border: 0.5px solid rgba(0,0,0,0.12);
+  border-radius: 6px;
+  padding: 4px 10px;
+  cursor: pointer;
+}
+
+.navbar__logout:hover {
+  color: #c0392b;
+  border-color: #c0392b;
+}
+
+.navbar__login {
+  font-size: 12px;
+  color: #7a7a72;
+  background-color: #cadde5 ;
+  border: 0.5px solid rgba(0,0,0,0.12);
+  border-radius: 6px;
+  padding: 4px 10px;
+  cursor: pointer;
+}
+
+.navbar__login:hover {
+  color: #2b64c0;
+  border-color: #2b64c0;
+}

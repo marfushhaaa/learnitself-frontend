@@ -12,10 +12,17 @@ import { MatIcon } from '@angular/material/icon';
 export class AppLoginComponent {
   private authService = inject(AppAuthService);
   useralias = signal('');
+  username_f = signal('');
+  username_l = signal('');
+  
 
   ngOnInit(): void {
     this.authService.useraliasObservable.subscribe(alias => {
       this.useralias.set(alias);
+    });
+    this.authService.usernameObservable.subscribe(name => {
+      this.username_f.set(name.split(' ').slice(0, -1).join(' '));
+      this.username_l.set(name.split(' ').slice(-1).join(' '));
     });
   }
 

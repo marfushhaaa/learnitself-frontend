@@ -1,1 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+* {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  transition: cubic-bezier(0.165, 0.84, 0.44, 1) 150ms;
+}
+*:hover {
+  transition: ease-in 150ms;
+}
+a {
+  text-decoration: none;
+}

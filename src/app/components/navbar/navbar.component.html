@@ -1,4 +1,10 @@
-<nav>
-  <span>Self-Lesson-Planner</span>
+<nav class="navbar">
+  <a href="/"><span class="navbar__brand">Self-Lesson-Planner</span></a>
+  <div class="navbar__links">
+    <a href="/courses">Kurse entdecken</a>
+    @if (useralias() !== '') {
+      <a href="/">Meine Kurse</a>
+    }
+  </div>
   <app-login></app-login>
 </nav>

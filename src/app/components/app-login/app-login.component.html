@@ -1,6 +1,9 @@
-<div style="margin-top: 20px">
-  @if (useralias() !== '') {
-    <button (click)="logout()" mat-button color="warn">Logout</button>
-  }
-  @else {<button (click)="login()" mat-button color="warn">login</button>}
-</div>
+@if (useralias() !== '') {
+  <div class="navbar__user">
+    <div class="navbar__avatar">{{ username_f().charAt(0).toUpperCase() }}{{username_l().charAt(0).toUpperCase()}}</div>
+    <span class="navbar__username">{{ username_f() }}</span>
+    <button class="navbar__logout" (click)="logout()">Logout</button>
+  </div>
+} @else {
+  <button class="navbar__login" (click)="login()">login</button>
+}

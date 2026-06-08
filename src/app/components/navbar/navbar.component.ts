@@ -9,7 +9,7 @@ import { AppLoginComponent } from '../../components/app-login/app-login.componen
   selector: 'app-navbar',
   imports: [AppLoginComponent], 
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css'
+  styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent implements OnInit {
   private authService = inject(AppAuthService);
