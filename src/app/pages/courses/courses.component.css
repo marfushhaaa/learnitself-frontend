@@ -111,6 +111,24 @@
   border-color: #639922;
   color: #27500A;
 }
+
+.btn--delete {
+  margin-left: auto;
+  background: none;
+  border: none;
+  color: var(--color-red);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  transition: color 0.15s, background 0.15s;
+}
+
+.btn--delete:hover {
+  color: var(--color-red);
+  background: rgba(216, 63, 63, 0.08);
+}
  
 /* ── Course Grid ──────────────────────────────────────── */
 .course-grid {

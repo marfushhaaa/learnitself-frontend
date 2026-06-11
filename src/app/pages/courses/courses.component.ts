@@ -31,12 +31,15 @@ export class CoursesComponent implements OnInit {
   isLoading = signal(true);
   enrollingId = signal<number | null>(null);
 
+  isAdmin = signal(false);
+
   ngOnInit(): void {
   if (this.oauthService.hasValidAccessToken()) {
     this.authService.useraliasObservable.subscribe(alias => {
       this.useralias.set(alias);
     });
     this.loadCourses();
+    this.checkAdminRole();
   }
 
   // nach frischem Login User überprüfen
@@ -49,6 +52,12 @@ export class CoursesComponent implements OnInit {
       this.loadCourses();
     });
     this.loadCourses();
+  }
+
+  private checkAdminRole(): void {
+    this.authService.getRoles().subscribe(roles => {
+      this.isAdmin.set(roles.includes('admin'));
+    });
   }
 
   loadCourses(): void {
@@ -123,5 +132,21 @@ export class CoursesComponent implements OnInit {
 
   createCourse(): void {
     this.router.navigate(['/courses/create']);
+  }
+
+  deleteCourse(event: Event, course: Course): void {
+    event.stopPropagation(); 
+
+    if (!confirm(`Kurs "${course.name}" wirklich löschen?`)) return;
+
+    this.courseService.delete(course.id).subscribe({
+      next: () => {
+        this.courses.update(list => list.filter(c => c.id !== course.id));
+        this.applyFilters();
+      },
+      error: () => {
+        alert('Kurs konnte nicht gelöscht werden.');
+      }
+    });
   }
 }

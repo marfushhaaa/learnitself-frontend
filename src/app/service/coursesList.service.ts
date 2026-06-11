@@ -24,6 +24,11 @@ export class coursesListService {
       return this.http.post<Course>(environment.backendBaseUrl + coursesListService.backendUrl, course);
    }
 
+   // DELETE /api/courses/{id}
+   public delete(id: number): Observable<HttpResponse<string>> {
+      return this.http.delete<string>(environment.backendBaseUrl + coursesListService.backendUrl + `/${id}`, {observe: 'response'});
+   }
+
    // GET /api/categories - list of categories for dropdown
    public getCategories(): Observable<Category[]> {
       return this.http.get<Category[]>(
