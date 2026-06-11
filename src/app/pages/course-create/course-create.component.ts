@@ -1,13 +1,13 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { coursesListService } from '../../service/coursesList.service';
 import { Course } from '../../dataaccess/course';
 import { Category } from '../../dataaccess/category';
 
 @Component({
   selector: 'app-course-create',
-  imports: [FormsModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './course-create.component.html',
   styleUrl: './course-create.component.css',
 })
@@ -18,11 +18,14 @@ export class CourseCreateComponent implements OnInit {
   categories = signal<Category[]>([]);
   isLoading = signal(false);
   error = signal('');
-  errors = signal<Record<string, string>>({});
 
-  // Formular Data
-  course = signal<Course>({...new Course(), creation_date: new Date().toISOString().split('T')[0]});
-
+  form = new FormGroup({
+    name:          new FormControl('', [Validators.required, Validators.maxLength(40)]),
+    description:   new FormControl(''),
+    category:      new FormControl('', [Validators.required]),
+    courseLength:  new FormControl<number | null>(null, [Validators.required, Validators.min(1)]),
+    creation_date: new FormControl(new Date().toISOString().split('T')[0])
+  });
 
   ngOnInit(): void {
     this.loadCategories();
@@ -35,41 +38,25 @@ export class CourseCreateComponent implements OnInit {
     });
   }
 
-  onCategoryChange(categoryId: string): void {
-    const cat = this.categories().find(c => c.id === Number(categoryId));
-    if (cat) {
-      this.course.update(c => ({ ...c, category: cat }));
-    }
-  }
-
-  onFieldChange(field: keyof Course, value: string): void {
-    this.course.update(c => ({
-      ...c,
-      [field]: field === 'courseLength' ? Number(value) : value
-    }));
-  }
-
   submit(): void {
-    const e: Record<string, string> = {};
+    if (this.form.invalid) return;
 
-    if (!this.course().name) {
-      e['name'] = 'Kursname ist erforderlich.';
-    }
-    if (!this.course().category.id) {
-      e['category'] = 'Bitte eine Kategorie wählen.';
-    }
-    if (!this.course().courseLength) {
-      e['courseLength'] = 'Kurslänge ist erforderlich.';
-    }
+    const cat = this.categories().find(
+      c => c.id === Number(this.form.value.category)
+    );
 
-    this.errors.set(e);
-    if (Object.keys(e).length > 0) return;
+    const courseData: Course = {
+      ...new Course(),
+      name:          this.form.value.name!,
+      description:   this.form.value.description ?? '',
+      category:      cat!,
+      courseLength:  Number(this.form.value.courseLength),
+      creation_date: this.form.value.creation_date!
+    };
 
     this.isLoading.set(true);
-    this.courseService.create(this.course()).subscribe({
-      next: () => {
-        this.router.navigate(['/courses']);
-      },
+    this.courseService.create(courseData).subscribe({
+      next: () => this.router.navigate(['/courses']),
       error: () => {
         this.error.set('Kurs konnte nicht erstellt werden.');
         this.isLoading.set(false);

@@ -4,7 +4,7 @@ export class Course {
   public id!: number;
   public name = '';
   public description = '';   
-  public courseLength = '';
+  public courseLength!: number;
   public creation_date = '';
   public creatorId!: string;
   public creatorUsername!: string;

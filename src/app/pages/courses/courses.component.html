@@ -1,96 +1,103 @@
 <div class="page">
-@if (useralias() !== '') {
-  <!-- ─── Toolbar ─── -->
-  <div class="toolbar">
-    <div class="toolbar__search">
-      <svg class="toolbar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-        <circle cx="11" cy="11" r="7" />
-        <line x1="16.5" y1="16.5" x2="22" y2="22" />
-      </svg>
-      <input
-        type="text"
-        class="toolbar__input"
-        placeholder="Kurs suchen…"
-        [value]="searchTerm()"
-        (input)="onSearchChange(($any($event.target)).value)"
-      />
-    </div>
+   @if (useralias() !== '') {
+   <!-- ─── Toolbar ─── -->
+   <div class="toolbar">
+      <div class="toolbar__search">
+         <svg class="toolbar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <circle cx="11" cy="11" r="7" />
+            <line x1="16.5" y1="16.5" x2="22" y2="22" />
+         </svg>
+         <input type="text" class="toolbar__input" placeholder="Kurs suchen…" [value]="searchTerm()"
+            (input)="onSearchChange(($any($event.target)).value)" />
+      </div>
 
-    <select class="toolbar__select" (change)="onCategoryChange(($any($event.target)).value)">
-      <option value="">Alle Kategorien</option>
-      @for (cat of categories(); track cat.id) {
-        <option [value]="cat.id">{{ cat.name }}</option>
-      }
-    </select>
+      <select class="toolbar__select" (change)="onCategoryChange(($any($event.target)).value)">
+         <option value="">Alle Kategorien</option>
+         @for (cat of categories(); track cat.id) {
+         <option [value]="cat.id">{{ cat.name }}</option>
+         }
+      </select>
 
-    <button class="btn btn--primary" (click)="createCourse()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
-        <line x1="12" y1="5" x2="12" y2="19" />
-        <line x1="5" y1="12" x2="19" y2="12" />
-      </svg>
-      Kurs erstellen
-    </button>
-  </div>
+      <button class="btn btn--primary" (click)="createCourse()">
+         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+            <line x1="12" y1="5" x2="12" y2="19" />
+            <line x1="5" y1="12" x2="19" y2="12" />
+         </svg>
+         Kurs erstellen
+      </button>
+   </div>
 
-  <!-- ─── Loading ─── -->
-  @if (isLoading()) {
-    <div class="state-message">
+   <!-- ─── Loading ─── -->
+   @if (isLoading()) {
+   <div class="state-message">
       <div class="spinner"></div>
       <span>Kurse werden geladen…</span>
-    </div>
-  }
+   </div>
+   }
 
-  <!-- ─── Empty state ─── -->
-  @if (!isLoading() && filteredCourses().length === 0) {
-    <div class="state-message">
+   <!-- ─── Empty state ─── -->
+   @if (!isLoading() && filteredCourses().length === 0) {
+   <div class="state-message">
       <span>Keine Kurse gefunden.</span>
-    </div>
-  }
+   </div>
+   }
 
-  <!-- ─── Course Grid ─── -->
-  @if (!isLoading()) {
-    <div class="course-grid">
+   <!-- ─── Course Grid ─── -->
+   @if (!isLoading()) {
+   <div class="course-grid">
 
       @for (course of filteredCourses(); track course.id) {
-        <div class="course-card" (click)="openCourse(course)">
+      <div class="course-card" (click)="openCourse(course)">
 
-          <div class="course-card__header">
+         <div class="course-card__header">
             <span class="badge badge--purple">
-              {{ course.category.name }}
+               {{ course.category.name }}
             </span>
-          </div>
-
-          <h3 class="course-card__title">{{ course.name }}</h3>
-          <p class="course-card__desc">{{ course.description }}</p>
-
-          <div class="course-card__meta">
+            
+            @if (course.courseLength) {
             <span class="meta-item">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="14" height="14">
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                <circle cx="12" cy="7" r="4" />
-              </svg>
-              {{ course.creatorUsername }}
+               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="14" height="14">
+                  <rect x="3" y="4" width="18" height="18" rx="2" />
+                  <line x1="16" y1="2" x2="16" y2="6" />
+                  <line x1="8" y1="2" x2="8" y2="6" />
+                  <line x1="3" y1="10" x2="21" y2="10" />
+               </svg>
+               {{ course.courseLength }} Tage
             </span>
-          </div>
+            }
+         </div>
 
-        </div>
+         <h3 class="course-card__title">{{ course.name }}</h3>
+         <p class="course-card__desc">{{ course.description }}</p>
+
+         <div class="course-card__meta">
+            <span class="meta-item">
+               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="14" height="14">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                  <circle cx="12" cy="7" r="4" />
+               </svg>
+               {{ course.creatorUsername }}
+            </span>
+         </div>
+
+      </div>
       }
 
       <!-- Create course card -->
       <div class="course-card course-card--create" (click)="createCourse()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="32" height="32">
-          <line x1="12" y1="5" x2="12" y2="19" />
-          <line x1="5" y1="12" x2="19" y2="12" />
-        </svg>
-        <span>Eigenen Kurs erstellen</span>
+         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="32" height="32">
+            <line x1="12" y1="5" x2="12" y2="19" />
+            <line x1="5" y1="12" x2="19" y2="12" />
+         </svg>
+         <span>Eigenen Kurs erstellen</span>
       </div>
 
-    </div>
-  }
-}
-@else {
-       <div class="state-message">
+   </div>
+   }
+   }
+   @else {
+   <div class="state-message">
       <span>Bitte loggen Sie ein, um Kurse zu sehen.</span>
-    </div>
-}
+   </div>
+   }
 </div>

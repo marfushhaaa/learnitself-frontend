@@ -12,67 +12,70 @@
       <div class="error-msg">{{ error() }}</div>
     }
 
-    <div class="form-group">
-      <label>Kursname * ({{ course().name.length }}/40)</label>
-      <input
-        type="text"
-        required
-        maxlength="40"
-        placeholder="z.B. Gitarre für Anfänger"
-        [value]="course().name"
-        (input)="onFieldChange('name', ($any($event.target)).value)"
-      />
-      @if (errors()['name']) {
-         <span class="field-error">{{ errors()['name'] }}</span>
-      }
-    </div>
+    <form [formGroup]="form" (ngSubmit)="submit()">
 
-    <div class="form-group">
-      <label>Beschreibung</label>
-      <textarea
-        placeholder="Worum geht es in diesem Kurs?"
-        [value]="course().description"
-        (input)="onFieldChange('description', ($any($event.target)).value)"
-      ></textarea>
-    </div>
-
-    <div class="form-group">
-      <label>Kategorie *</label>
-      <select (change)="onCategoryChange(($any($event.target)).value)">
-        <option value="">Kategorie wählen…</option>
-        @for (cat of categories(); track cat.id) {
-          <option [value]="cat.id">{{ cat.name }}</option>
+      <div class="form-group">
+        <label>Kursname * ({{ form.get('name')?.value?.length || 0 }}/40)</label>
+        <input
+          type="text"
+          formControlName="name"
+          required=""
+          maxlength="40"
+          placeholder="z.B. Gitarre für Anfänger"
+        />
+        @if (form.get('name')?.invalid && form.get('name')?.touched) {
+          <span class="field-error">Kursname ist erforderlich.</span>
         }
-      </select>
-      @if (errors()['category']) {
-         <span class="field-error">{{ errors()['category'] }}</span>
-      }
-    </div>
-   <div class="form-group">
-      <label>Kurslänge (in Tage) *</label>
-      <input
-         type="number"
-         placeholder="z.B. 10"
-         min="1"
-         required
-         [value]="course().courseLength"
-         (input)="onFieldChange('courseLength', ($any($event.target)).value)"
-      />
-      @if (errors()['courseLength']) {
-         <span class="field-error">{{ errors()['courseLength'] }}</span>
-      }
-   </div>
+      </div>
 
-    <div class="form-actions">
-      <button class="btn btn-outline" (click)="cancel()">Abbrechen</button>
-      <button class="btn btn-primary" (click)="submit()" [disabled]="isLoading()">
-        @if (isLoading()) {
-          Wird erstellt…
-        } @else {
-          Kurs erstellen
+      <div class="form-group">
+        <label>Beschreibung</label>
+        <textarea
+          formControlName="description"
+          placeholder="Worum geht es in diesem Kurs?"
+        ></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Kategorie *</label>
+        <select formControlName="category">
+          <option value="">Kategorie wählen…</option>
+          @for (cat of categories(); track cat.id) {
+            <option [value]="cat.id">{{ cat.name }}</option>
+          }
+        </select>
+        @if (form.get('category')?.invalid && form.get('category')?.touched) {
+          <span class="field-error">Bitte eine Kategorie wählen.</span>
         }
-      </button>
-    </div>
+      </div>
+
+      <div class="form-group">
+        <label>Kurslänge (in Tage) *</label>
+        <input
+          type="number"
+          formControlName="courseLength"
+          placeholder="z.B. 10"
+          min="1"
+        />
+        @if (form.get('courseLength')?.invalid && form.get('courseLength')?.touched) {
+          <span class="field-error">Kurslänge ist erforderlich.</span>
+        }
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn btn-outline" (click)="cancel()">
+          Abbrechen
+        </button>
+        <button type="submit" class="btn btn-primary" [disabled]="form.invalid || isLoading()">
+          @if (isLoading()) {
+            Wird erstellt…
+          } @else {
+            Kurs erstellen
+          }
+        </button>
+      </div>
+
+    </form>
 
   </div>
 </div>
