@@ -1,1 +1,11 @@
-<p>Courses page is comming..</p>
+<p>Courses page is comming..but....</p>
+@for (course of courses(); track course.id) {
+<div class="card">
+   <h3>{{ course.name }}</h3>
+   <p>{{ course.description }}</p>
+   <p>{{ course.creatorUsername }}</p>
+   <p>{{ course.creation_date }}</p>
+   <p>{{ course.category.name }}</p>
+
+</div>
+}
