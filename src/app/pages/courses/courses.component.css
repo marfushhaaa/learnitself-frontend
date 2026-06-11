@@ -1,0 +1,242 @@
+/* ── Page layout ────────────────────────────────────── */
+.page {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+ 
+/* ── Toolbar ─────────────────────────────────────────── */
+.toolbar {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+ 
+.toolbar__search {
+  flex: 1;
+  min-width: 200px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--color-surface);
+  border: 0.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 0 14px;
+  height: 40px;
+}
+ 
+.toolbar__icon {
+  width: 16px;
+  height: 16px;
+  color: var(--color-muted);
+  flex-shrink: 0;
+}
+ 
+.toolbar__input {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 13px;
+  color: var(--color-text);
+  width: 100%;
+}
+ 
+.toolbar__input::placeholder {
+  color: var(--color-muted);
+}
+ 
+.toolbar__select {
+  height: 40px;
+  padding: 0 12px;
+  border: 0.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  font-size: 13px;
+  color: var(--color-text);
+  cursor: pointer;
+  outline: none;
+}
+ 
+/* ── Buttons ─────────────────────────────────────────── */
+.btn {
+  height: 40px;
+  padding: 0 18px;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.15s;
+}
+ 
+.btn--primary {
+  background: var(--color-primary);
+  color: #fff;
+}
+ 
+.btn--primary:hover {
+  background: var(--color-primary-h);
+}
+ 
+.btn--enroll {
+  width: 100%;
+  height: 38px;
+  background: transparent;
+  color: var(--color-primary);
+  border: 0.5px solid var(--color-primary);
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  margin-top: auto;
+}
+ 
+.btn--enroll:hover:not(:disabled) {
+  background: var(--color-primary);
+  color: #fff;
+}
+ 
+.btn--enroll:disabled {
+  cursor: default;
+}
+ 
+.btn--enrolled {
+  background: #EAF3DE;
+  border-color: #639922;
+  color: #27500A;
+}
+ 
+/* ── Course Grid ──────────────────────────────────────── */
+.course-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+ 
+/* ── Course Card ──────────────────────────────────────── */
+.course-card {
+  background: var(--color-surface);
+  border: 0.5px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  cursor: pointer;
+  transition: box-shadow 0.15s, border-color 0.15s;
+}
+ 
+.course-card:hover {
+  border-color: rgba(83, 74, 183, 0.25);
+  box-shadow: 0 4px 16px rgba(83, 74, 183, 0.08);
+}
+ 
+.course-card__header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+ 
+.course-card__title {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--color-text);
+  line-height: 1.4;
+}
+ 
+.course-card__desc {
+  font-size: 13px;
+  color: var(--color-muted);
+  line-height: 1.6;
+  flex: 1;
+}
+ 
+.course-card__meta {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+ 
+.meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: var(--color-muted);
+}
+ 
+/* ── Create Card ──────────────────────────────────────── */
+.course-card--create {
+  border-style: dashed;
+  border-color: rgba(0, 0, 0, 0.12);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 180px;
+  color: var(--color-muted);
+  font-size: 13px;
+  transition: border-color 0.15s, color 0.15s;
+}
+ 
+.course-card--create:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  box-shadow: none;
+}
+ 
+/* ── Badges ───────────────────────────────────────────── */
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 500;
+}
+ 
+.badge--purple { background: #EEEDFE; color: #3C3489; }
+.badge--gray   { background: #F1EFE8; color: #444441; }
+.badge--amber  { background: #FAEEDA; color: #633806; }
+.badge--green  { background: #EAF3DE; color: #27500A; }
+ 
+/* ── Tags ─────────────────────────────────────────────── */
+.tag {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 20px;
+}
+ 
+.tag--own      { background: #EEEDFE; color: #534AB7; }
+.tag--enrolled { background: #EAF3DE; color: #3B6D11; }
+ 
+/* ── States ───────────────────────────────────────────── */
+.state-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 4rem 0;
+  color: var(--color-muted);
+  font-size: 14px;
+}
+ 
+.spinner {
+  width: 28px;
+  height: 28px;
+  border: 2px solid var(--color-border);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+ 
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

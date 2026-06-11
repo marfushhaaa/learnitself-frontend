@@ -1,11 +1,96 @@
-<p>Courses page is comming..but....</p>
-@for (course of courses(); track course.id) {
-<div class="card">
-   <h3>{{ course.name }}</h3>
-   <p>{{ course.description }}</p>
-   <p>{{ course.creatorUsername }}</p>
-   <p>{{ course.creation_date }}</p>
-   <p>{{ course.category.name }}</p>
+<div class="page">
+@if (useralias() !== '') {
+  <!-- ─── Toolbar ─── -->
+  <div class="toolbar">
+    <div class="toolbar__search">
+      <svg class="toolbar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <circle cx="11" cy="11" r="7" />
+        <line x1="16.5" y1="16.5" x2="22" y2="22" />
+      </svg>
+      <input
+        type="text"
+        class="toolbar__input"
+        placeholder="Kurs suchen…"
+        [value]="searchTerm()"
+        (input)="onSearchChange(($any($event.target)).value)"
+      />
+    </div>
 
-</div>
+    <select class="toolbar__select" (change)="onCategoryChange(($any($event.target)).value)">
+      <option value="">Alle Kategorien</option>
+      @for (cat of categories(); track cat.id) {
+        <option [value]="cat.id">{{ cat.name }}</option>
+      }
+    </select>
+
+    <button class="btn btn--primary" (click)="createCourse()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+        <line x1="12" y1="5" x2="12" y2="19" />
+        <line x1="5" y1="12" x2="19" y2="12" />
+      </svg>
+      Kurs erstellen
+    </button>
+  </div>
+
+  <!-- ─── Loading ─── -->
+  @if (isLoading()) {
+    <div class="state-message">
+      <div class="spinner"></div>
+      <span>Kurse werden geladen…</span>
+    </div>
+  }
+
+  <!-- ─── Empty state ─── -->
+  @if (!isLoading() && filteredCourses().length === 0) {
+    <div class="state-message">
+      <span>Keine Kurse gefunden.</span>
+    </div>
+  }
+
+  <!-- ─── Course Grid ─── -->
+  @if (!isLoading()) {
+    <div class="course-grid">
+
+      @for (course of filteredCourses(); track course.id) {
+        <div class="course-card" (click)="openCourse(course)">
+
+          <div class="course-card__header">
+            <span class="badge badge--purple">
+              {{ course.category.name }}
+            </span>
+          </div>
+
+          <h3 class="course-card__title">{{ course.name }}</h3>
+          <p class="course-card__desc">{{ course.description }}</p>
+
+          <div class="course-card__meta">
+            <span class="meta-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="14" height="14">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
+              {{ course.creatorUsername }}
+            </span>
+          </div>
+
+        </div>
+      }
+
+      <!-- Create course card -->
+      <div class="course-card course-card--create" (click)="createCourse()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="32" height="32">
+          <line x1="12" y1="5" x2="12" y2="19" />
+          <line x1="5" y1="12" x2="19" y2="12" />
+        </svg>
+        <span>Eigenen Kurs erstellen</span>
+      </div>
+
+    </div>
+  }
 }
+@else {
+       <div class="state-message">
+      <span>Bitte loggen Sie ein, um Kurse zu sehen.</span>
+    </div>
+}
+</div>
