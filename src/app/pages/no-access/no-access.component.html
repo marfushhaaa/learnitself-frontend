@@ -1,5 +1,36 @@
-<span class="material-icons" style="font-size: 200px; color: red;">warning_amber</span>
+<div class="page">
+  <div class="container">
 
-@if (!oauthService.hasValidAccessToken()) {
-  <app-login></app-login>
-}
+    <div class="illustration">
+      <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="60" cy="60" r="56" fill="#ffd3b6" opacity="0.3"/>
+        <circle cx="60" cy="60" r="40" fill="#ffabab" opacity="0.3"/>
+        <path d="M60 35a8 8 0 0 1 8 8v12H52V43a8 8 0 0 1 8-8z" stroke="#d83f3f" stroke-width="2.5" fill="none"/>
+        <rect x="44" y="55" width="32" height="24" rx="4" fill="#ff677d" opacity="0.9"/>
+        <circle cx="60" cy="67" r="3" fill="white"/>
+        <line x1="60" y1="70" x2="60" y2="74" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+
+    @if (!oauthService.hasValidAccessToken()) {
+      <div class="content">
+        <h1 class="title">Bitte zuerst anmelden</h1>
+        <p class="subtitle">
+          Um auf diese Seite zuzugreifen, musst du eingeloggt sein.
+        </p>
+        <app-login></app-login>
+      </div>
+    } @else {
+      <div class="content">
+        <h1 class="title">Kein Zugriff</h1>
+        <p class="subtitle">
+          Du hast leider nicht die nötigen Berechtigungen für diese Seite.
+        </p>
+        <button class="btn-back" (click)="back()">
+          ← Zurück zur Startseite
+        </button>
+      </div>
+    }
+
+  </div>
+</div>
