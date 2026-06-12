@@ -134,6 +134,11 @@ export class CoursesComponent implements OnInit {
     this.router.navigate(['/courses/create']);
   }
 
+  editCourse(event: Event, course: Course): void {
+    event.stopPropagation(); 
+    this.router.navigate(['/courses/edit', course.id]);
+  }
+
   deleteCourse(event: Event, course: Course): void {
     event.stopPropagation(); 
 

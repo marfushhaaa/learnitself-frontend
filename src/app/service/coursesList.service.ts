@@ -14,6 +14,11 @@ export class coursesListService {
 
    public static readonly backendUrl = 'courses';
 
+   // GET /api/courses/{id}
+   public getById(id: number): Observable<Course> {
+      return this.http.get<Course>(environment.backendBaseUrl + coursesListService.backendUrl + `/${id}`);
+   }
+
    // GET /api/courses
    public getList(): Observable<Course[]> {
       return this.http.get<Course[]>(environment.backendBaseUrl + coursesListService.backendUrl);
@@ -22,6 +27,11 @@ export class coursesListService {
    // POST /api/courses/create
    public create(course: Course): Observable<Course> {
       return this.http.post<Course>(environment.backendBaseUrl + coursesListService.backendUrl, course);
+   }
+
+   // PUT /api/courses/{id}
+   public update(course: Course): Observable<Course> {
+      return this.http.put<Course>(environment.backendBaseUrl + coursesListService.backendUrl + `/${course.id}`, course);
    }
 
    // DELETE /api/courses/{id}
