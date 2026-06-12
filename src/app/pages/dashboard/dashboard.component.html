@@ -1,7 +1,181 @@
-<div class="page">@if (useralias() !== '') {
-  <div style="font-weight: bold">
-    Guten Morgen {{ username() }}!
+<div class="page">
+
+  @if (useralias() === '') {
+  <div class="login-state">
+    <div class="login-state__icon">
+      <svg viewBox="0 0 80 80" fill="none">
+        <circle cx="40" cy="40" r="38" fill="#ffd3b6" opacity="0.4" />
+        <circle cx="40" cy="30" r="14" stroke="#ff677d" stroke-width="2.5" />
+        <path d="M12 68c0-15 12-26 28-26s28 11 28 26" stroke="#ff677d" stroke-width="2.5" stroke-linecap="round" />
+      </svg>
+    </div>
+    <h2>Willkommen beim Self-Lesson-Planner</h2>
+    <p>Melde dich an um dein Profil zu sehen und Kurse zu verwalten.</p>
+    <app-login></app-login>
   </div>
-  <div>Rolle: {{ useralias() }}</div>
   }
+
+  @if (isLoading() && useralias() !== '') {
+  <div class="loading-state">
+    <div class="loading-skeleton">
+      <div class="skeleton skeleton--hero"></div>
+      <div class="skeleton-grid">
+        <div class="skeleton skeleton--card"></div>
+        <div class="skeleton skeleton--card"></div>
+        <div class="skeleton skeleton--card"></div>
+        <div class="skeleton skeleton--card"></div>
+      </div>
+    </div>
+  </div>
+  }
+
+
+
+  @if (!isLoading() && useralias() !== '') {
+  <div class="dashboard">
+
+    <!-- ── Profil-Hero ── -->
+    <div class="profile-hero">
+      <div class="profile-hero__bg"></div>
+      <div class="profile-hero__content">
+        <div class="avatar">{{ initials() }}</div>
+        <div class="profile-hero__info">
+          <div class="profile-hero__greeting">{{ getGreeting() }},</div>
+          <h1 class="profile-hero__name">{{ username() }}</h1>
+          <div class="profile-hero__alias">&#64;{{ useralias() }}</div>
+        </div>
+        <div class="role-badge" [class.role-badge--admin]="isAdmin()">
+          @if (isAdmin()) {
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+            <path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z" />
+          </svg>
+          Admin
+          } @else {
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+            <circle cx="12" cy="7" r="4" />
+          </svg>
+          User
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Info Grid ── -->
+    <div class="info-grid">
+
+      <div class="info-card">
+        <div class="info-card__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="14" height="14">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+            <circle cx="12" cy="7" r="4" />
+          </svg>
+          Vorname
+        </div>
+        <div class="info-card__value">{{ firstName() || '—' }}</div>
+      </div>
+
+      <div class="info-card">
+        <div class="info-card__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="14" height="14">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+            <circle cx="12" cy="7" r="4" />
+          </svg>
+          Nachname
+        </div>
+        <div class="info-card__value">{{ lastName() || '—' }}</div>
+      </div>
+
+      <div class="info-card">
+        <div class="info-card__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="14" height="14">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+            <polyline points="22,6 12,13 2,6" />
+          </svg>
+          E-Mail
+        </div>
+        <div class="info-card__value">{{ email() || '—' }}</div>
+      </div>
+
+      <div class="info-card">
+        <div class="info-card__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="14" height="14">
+            <circle cx="12" cy="12" r="3" />
+            <path
+              d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12" />
+          </svg>
+          Benutzername
+        </div>
+        <div class="info-card__value">{{ useralias() }}</div>
+      </div>
+
+      <div class="info-card info-card--wide">
+        <div class="info-card__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="14" height="14">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+          </svg>
+          Rollen
+        </div>
+        <div class="roles-list">
+          @for (role of roles(); track role) {
+          <span class="role-tag" [class.role-tag--admin]="role.toLowerCase() === 'admin'">
+            @if (role.toLowerCase() === 'admin') {
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12">
+              <path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z" />
+            </svg>
+            }
+            {{ role }}
+          </span>
+          }
+          @if (roles().length === 0) {
+          <span class="info-card__value">—</span>
+          }
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── Quick Actions ── -->
+    <div class="section-title">Schnellzugriff</div>
+    <div class="actions-grid">
+      <div class="action-card" (click)="goToCourses()">
+        <div class="action-card__icon action-card__icon--mint">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="22" height="22">
+            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+          </svg>
+        </div>
+        <div class="action-card__text">
+          <div class="action-card__title">Kurse entdecken</div>
+          <div class="action-card__sub">Alle verfügbaren Kurse ansehen</div>
+        </div>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="16" height="16"
+          class="action-card__arrow">
+          <line x1="5" y1="12" x2="19" y2="12" />
+          <polyline points="12 5 19 12 12 19" />
+        </svg>
+      </div>
+
+      <div class="action-card" (click)="goToCourses()">
+        <div class="action-card__icon action-card__icon--peach">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="22" height="22">
+            <line x1="12" y1="5" x2="12" y2="19" />
+            <line x1="5" y1="12" x2="19" y2="12" />
+          </svg>
+        </div>
+        <div class="action-card__text">
+          <div class="action-card__title">Kurs erstellen</div>
+          <div class="action-card__sub">Eigene Lerninhalte aufbauen</div>
+        </div>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="16" height="16"
+          class="action-card__arrow">
+          <line x1="5" y1="12" x2="19" y2="12" />
+          <polyline points="12 5 19 12 12 19" />
+        </svg>
+      </div>
+    </div>
+
+  </div>
+  }
+
 </div>
