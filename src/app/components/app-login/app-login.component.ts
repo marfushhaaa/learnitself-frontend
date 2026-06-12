@@ -1,7 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
 import {AppAuthService} from '../../service/app.auth.service';
-import { MatButton } from '@angular/material/button';
-import { MatIcon } from '@angular/material/icon';
 
 @Component({
     selector: 'app-login',

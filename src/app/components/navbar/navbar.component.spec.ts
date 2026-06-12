@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { AuthConfig, OAuthModule } from 'angular-oauth2-oidc';
+import { authConfig } from './../../app.config';
 import { NavbarComponent } from './navbar.component';
 
 describe('NavbarComponent', () => {
@@ -8,7 +9,10 @@ describe('NavbarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NavbarComponent],
+      imports: [NavbarComponent, OAuthModule.forRoot({ resourceServer: { sendAccessToken: true } })],
+            providers: [
+              { provide: AuthConfig, useValue: authConfig },
+            ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(NavbarComponent);
