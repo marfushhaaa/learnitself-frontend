@@ -6,7 +6,7 @@ import {BehaviorSubject, Observable} from 'rxjs';
 })
 export class HeaderService {
 
-  private pageSubject: BehaviorSubject<string> = new BehaviorSubject('');
+  private pageSubject = new BehaviorSubject<string>('');
   public readonly pageObservable: Observable<string> = this.pageSubject.asObservable();
 
   public setPage(page: string) {

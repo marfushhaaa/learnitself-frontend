@@ -47,7 +47,7 @@
    <div class="course-grid">
 
       @for (course of filteredCourses(); track course.id) {
-      <div class="course-card" (click)="openCourse(course)">
+      <button class="course-card" (click)="openCourse(course)">
 
 
          <div class="course-card__header">
@@ -99,17 +99,17 @@
             </span>
          </div>
 
-      </div>
+      </button>
       }
 
       <!-- Create course card -->
-      <div class="course-card course-card--create" (click)="createCourse()">
+      <button class="course-card course-card--create" (click)="createCourse()">
          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="32" height="32">
             <line x1="12" y1="5" x2="12" y2="19" />
             <line x1="5" y1="12" x2="19" y2="12" />
          </svg>
          <span>Eigenen Kurs erstellen</span>
-      </div>
+      </button>
 
    </div>
    }

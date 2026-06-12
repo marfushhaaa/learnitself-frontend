@@ -15,7 +15,7 @@
     <form [formGroup]="form" (ngSubmit)="submit()">
 
       <div class="form-group">
-        <label>Kursname * ({{ form.get('name')?.value?.length || 0 }}/40)</label>
+        <label for="kursname">Kursname * ({{ form.get('name')?.value?.length || 0 }}/40)</label>
         <input
           type="text"
           formControlName="name"
@@ -30,7 +30,7 @@
       </div>
 
       <div class="form-group">
-        <label>Beschreibung</label>
+        <label for="beschreibung">Beschreibung</label>
         <textarea
           formControlName="description"
           placeholder="Worum geht es in diesem Kurs?"
@@ -38,7 +38,7 @@
       </div>
 
       <div class="form-group">
-        <label>Kategorie *</label>
+        <label for="kategorie">Kategorie *</label>
         <select formControlName="category">
           <option value="">Kategorie wählen…</option>
           @for (cat of categories(); track cat.id) {
@@ -51,7 +51,7 @@
       </div>
 
       <div class="form-group">
-        <label>Kurslänge (in Tage) *</label>
+        <label for="kurslaenge">Kurslänge (in Tage) *</label>
         <input
           type="number"
           formControlName="courseLength"

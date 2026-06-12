@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, inject, signal, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { coursesListService } from '../../service/coursesList.service';
 import { Course } from '../../dataaccess/course';
@@ -9,7 +9,7 @@ import { Course } from '../../dataaccess/course';
   templateUrl: './course-details.component.html',
   styleUrl: './course-details.component.css',
 })
-export class CourseDetailsComponent {
+export class CourseDetailsComponent implements OnInit {
   private courseService = inject(coursesListService);
   private router = inject(Router);
   private route = inject(ActivatedRoute);

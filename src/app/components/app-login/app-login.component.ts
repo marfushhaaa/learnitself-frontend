@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, OnInit } from '@angular/core';
 import {AppAuthService} from '../../service/app.auth.service';
 
 @Component({
@@ -7,7 +7,7 @@ import {AppAuthService} from '../../service/app.auth.service';
     styleUrls: ['./app-login.component.scss'],
     imports: []
 })
-export class AppLoginComponent {
+export class AppLoginComponent implements OnInit {
   private authService = inject(AppAuthService);
   useralias = signal('');
   username_f = signal('');

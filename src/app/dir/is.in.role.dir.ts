@@ -6,7 +6,7 @@ import {AppAuthService} from '../service/app.auth.service';
 @Directive({ selector: '[appIsInRole]' })
 export class IsInRoleDirective implements OnInit, OnDestroy {
   private viewContainerRef = inject(ViewContainerRef);
-  private templateRef = inject<TemplateRef<any>>(TemplateRef);
+  private templateRef = inject<TemplateRef<unknown>>(TemplateRef);
   private authService = inject(AppAuthService);
 
   @Input() appIsInRole = '';

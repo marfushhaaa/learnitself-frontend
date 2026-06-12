@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, signal, computed } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { AppAuthService } from '../../service/app.auth.service';
 import { filter } from 'rxjs';
 import { OAuthService } from 'angular-oauth2-oidc';

@@ -7,7 +7,7 @@ export class HttpXSRFInterceptor implements HttpInterceptor {
   private tokenExtractor = inject(HttpXsrfTokenExtractor);
 
 
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     if (!req.url.startsWith('http://localhost:8080')) {
       const headerName = 'X-XSRF-TOKEN';
       const token = this.tokenExtractor.getToken() as string;
